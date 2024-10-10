@@ -9,7 +9,9 @@ const path = require("path");
 const app = express();
 
 // Use CORS middleware
-app.use(cors());
+app.use(cors({
+    origin: 'https://sarika-agrawal.github.io' // Replace with your frontend URL
+}));
 
 app.use(bodyParser.json());
 app.use(express.static("public"));
