@@ -9,9 +9,14 @@ const path = require("path");
 const app = express();
 
 // Use CORS middleware
-app.use(cors({
-    origin: 'https://sarika-agrawal.github.io/Project-Submission-Form/public/index.html' // Replace with your frontend URL
-}));
+app.use(
+  cors({
+    origin:
+      "https://sarika-agrawal.github.io/Project-Submission-Form/public/index.html", // Allow your GitHub Pages domain
+    methods: ["GET", "POST"], // Specify allowed methods
+    credentials: true, // Allow credentials if needed
+  })
+);
 
 app.use(bodyParser.json());
 app.use(express.static("public"));
