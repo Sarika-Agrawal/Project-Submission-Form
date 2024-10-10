@@ -1,11 +1,16 @@
 const express = require("express");
 const bodyParser = require("body-parser");
+const cors = require("cors");
 const XLSX = require("xlsx");
 const fs = require("fs");
 const path = require("path");
 
 // Initialize the app
 const app = express();
+
+// Use CORS middleware
+app.use(cors());
+
 app.use(bodyParser.json());
 app.use(express.static("public"));
 
@@ -23,10 +28,12 @@ const getNextGroupId = (workbook) => {
 
     // Get the highest Group ID
     const groupIds = data
-      .map((entry) => entry.Group_ID)
+      .map((entry) => entry["Group ID"])
       .filter((id) => id) // Filter out any undefined or null values
       .map((id) => parseInt(id.substring(1))) // Extract numeric part
       .filter((num) => !isNaN(num)); // Filter valid numbers
+
+    console.log("Group IDs found:", groupIds);
 
     // If we have valid group IDs, increment the last one; otherwise, start with G1
     if (groupIds.length > 0) {
@@ -154,20 +161,18 @@ app.post("/submit", (req, res) => {
       .status(500)
       .json({ message: "An error occurred while processing your request." });
   }
-<<<<<<< HEAD
-});
-
-// Handle 404 errors
-app.use((req, res) => {
-  res.status(404).send("404: Page not found");
-=======
->>>>>>> a4c679fb5327655c9c44a7c073195d13d7cb25ce
 });
 
 // Handle 404 errors
 app.use((req, res) => {
   res.status(404).send("404: Page not found");
 });
+
+// Handle 404 errors
+app.use((req, res) => {
+  res.status(404).send("404: Page not found");
+});
+
 // Start the server
 app.listen(3000, () => {
   console.log("Server running on http://localhost:3000");
