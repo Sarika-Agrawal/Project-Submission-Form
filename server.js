@@ -10,7 +10,7 @@ const app = express();
 
 // Use CORS middleware
 app.use(cors({
-    origin: 'https://sarika-agrawal.github.io' // Replace with your frontend URL
+    origin: 'https://sarika-agrawal.github.io/Project-Submission-Form/public/index.html' // Replace with your frontend URL
 }));
 
 app.use(bodyParser.json());
